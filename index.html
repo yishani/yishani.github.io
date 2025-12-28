@@ -116,6 +116,9 @@
                 justify-content: center;
                 border-right: 1px solid var(--light-line);
                 animation: slideIn 0.6s ease-out;
+                position: sticky;
+                top: 0;
+                height: 100vh;
             }
 
             @keyframes slideIn {
@@ -293,29 +296,22 @@
             .news-items {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 6px;
             }
 
             .news-item {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                padding: 10px 16px;
-                background: rgba(255, 255, 255, 0.6);
-                border-radius: 10px;
-                border: 1px solid var(--light-line);
+                display: flex;
+                align-items: baseline;
+                gap: 12px;
                 font-size: 13px;
             }
 
-            .news-badge {
-                background: linear-gradient(135deg, var(--soft-orange), #f09060);
-                color: white;
-                padding: 3px 8px;
-                border-radius: 5px;
-                font-size: 10px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
+            .news-date {
+                font-family: 'Fraunces', serif;
+                font-style: italic;
+                font-size: 12px;
+                color: var(--muted);
+                min-width: 70px;
             }
 
             /* Publications */
@@ -616,28 +612,21 @@
             .news-items {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 8px;
             }
 
             .news-item {
-                padding: 16px 20px;
-                background: rgba(255, 255, 255, 0.5);
-                border-radius: 12px;
-                border: 1px solid var(--light-line);
                 display: flex;
-                align-items: center;
+                align-items: baseline;
                 gap: 12px;
             }
 
-            .news-badge {
-                background: linear-gradient(135deg, var(--soft-orange), #f09060);
-                color: white;
-                padding: 4px 10px;
-                border-radius: 6px;
-                font-size: 11px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
+            .news-date {
+                font-family: 'Fraunces', serif;
+                font-style: italic;
+                font-size: 13px;
+                color: var(--muted);
+                min-width: 70px;
             }
 
             /* Publications */
@@ -829,11 +818,11 @@
                 <h2>News</h2>
                 <div class="news-items">
                     <div class="news-item">
-                        <span class="news-badge">Oct 2025</span>
+                        <span class="news-date">Oct 2025</span>
                         <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
                     </div>
                     <div class="news-item">
-                        <span class="news-badge">Jun 2025</span>
+                        <span class="news-date">Jun 2025</span>
                         <span>🎉 Started PhD working on multimodal AI & agents for healthcare</span>
                     </div>
                 </div>
