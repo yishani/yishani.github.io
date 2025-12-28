@@ -6,188 +6,548 @@
     <meta name="author" content="Yishan Wang">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Adjust cluster map size - smaller for better display */
-        #clstr_globe {
-            transform: scale(0.1);
-            transform-origin: center;
-            max-height: 100px;       /* 改这个高度 */
+        :root {
+            --cream: #fffdf8;
+            --warm-gray: #2d2a26;
+            --soft-orange: #e07850;
+            --blush: #f4e4dc;
+            --muted: #8a8580;
+            --light-line: rgba(45, 42, 38, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--warm-gray);
+            background: linear-gradient(180deg, var(--cream) 0%, #fff9f5 50%, var(--cream) 100%);
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--blush);
+            color: var(--warm-gray);
+        }
+
+        a {
+            color: var(--soft-orange);
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        a:hover {
+            color: var(--warm-gray);
+        }
+
+        /* Ambient background shapes */
+        .ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
             overflow: hidden;
+        }
+
+        .ambient::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
+            opacity: 0.5;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .ambient::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #fce8d5 0%, transparent 70%);
+            opacity: 0.4;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 100px 32px;
+            position: relative;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 48px;
+            border: 1px solid var(--light-line);
+            box-shadow: 0 4px 40px rgba(224, 120, 80, 0.06);
+            animation: cardIn 0.7s ease-out;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .header-inner {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--blush);
+            flex-shrink: 0;
+            transition: transform 0.4s ease, border-color 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            border-color: var(--soft-orange);
+        }
+
+        .header-text h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .header-text .subtitle {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .header-text .email {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .social-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .social-pills a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--blush);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--warm-gray);
+            transition: all 0.25s ease;
+        }
+
+        .social-pills a:hover {
+            background: var(--soft-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s ease-out backwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.15s; }
+        section:nth-child(3) { animation-delay: 0.25s; }
+        section:nth-child(4) { animation-delay: 0.35s; }
+        section:nth-child(5) { animation-delay: 0.45s; }
+        section:nth-child(6) { animation-delay: 0.55s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--light-line) 0%, transparent 100%);
+        }
+
+        /* Bio */
+        .bio-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--warm-gray);
+        }
+
+        .bio-text strong {
+            color: var(--soft-orange);
+            font-weight: 500;
+        }
+
+        /* Education List */
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .edu-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .edu-year {
+            font-family: 'Fraunces', serif;
+            font-size: 13px;
+            color: var(--muted);
+            min-width: 90px;
+            padding-top: 2px;
+        }
+
+        .edu-content {
+            flex: 1;
+        }
+
+        .edu-degree {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .edu-school {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* News */
+        .news-item {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--light-line);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .news-badge {
+            background: linear-gradient(135deg, var(--soft-orange), #f09060);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Publications */
+        .pub-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .pub-item {
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--light-line);
+            transition: all 0.3s ease;
+        }
+
+        .pub-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 30px rgba(224, 120, 80, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .pub-title {
+            font-family: 'Fraunces', serif;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            color: var(--warm-gray);
+        }
+
+        .pub-authors {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .pub-authors .me {
+            color: var(--warm-gray);
+            font-weight: 500;
+        }
+
+        .pub-venue {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--soft-orange);
+            margin-bottom: 12px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pub-links a {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 6px 12px;
+            background: var(--blush);
+            border-radius: 6px;
+            color: var(--warm-gray);
+        }
+
+        .pub-links a:hover {
+            background: var(--soft-orange);
+            color: white;
+        }
+
+        /* Awards */
+        .awards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .award-item {
+            display: flex;
+            gap: 16px;
+            align-items: baseline;
+        }
+
+        .award-year {
+            font-family: 'Fraunces', serif;
+            font-size: 13px;
+            color: var(--muted);
+            min-width: 50px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 20px;
+        }
+
+        .footer-text {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 60px 20px;
+            }
+
+            .header-card {
+                padding: 32px 24px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-pills {
+                justify-content: center;
+            }
+
+            .header-text h1 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin:auto;">
-        <tbody>
-            <tr style="padding:0px">
-                <td style="padding:0px">
-                    
-                    <!-- Header Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr style="padding:0px">
-                                <td style="padding:2.5%;width:63%;vertical-align:middle">
-                                    <p class="name" style="text-align: center;">
-                                        Yishan Wang
-                                    </p>
-                                    <p>
-                                        PhD Researcher<br>
-                                        <a href="https://www.tue.nl/en/">TU Eindhoven</a>, Eindhoven, Netherlands
-                                    </p>
-                                    <p>
-                                        Email: <a href="mailto:askyishan@gmail.com">askyishan@gmail.com</a>
-                                    </p>
-                                    <p>
-                                        [<a href="https://scholar.google.com/citations?user=Zy2eJZYAAAAJ&hl=en">Google Scholar</a>]
-                                        [<a href="https://github.com/yishani">GitHub</a>]
-                                        [<a href="https://www.linkedin.com/in/askyishan/">LinkedIn</a>]
-                                        [<a href="https://drive.google.com/file/d/1V_Zh28WvNt4IP1V_HgYiuSnjys2AkAC2/view?usp=sharing">CV</a>]
-                                    </p>
-                                </td>
-                                <td style="padding:2.5%;width:40%;max-width:40%">
-                                    <a href="images/profile.png">
-                                        <img style="width:100%;max-width:100%;object-fit:cover;border-radius:50%;" 
-                                             alt="profile photo" 
-                                             src="images/profile.png" 
-                                             class="hoverZoomLink">
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <div class="ambient"></div>
+    
+    <div class="container">
+        <!-- Header Card -->
+        <div class="header-card">
+            <div class="header-inner">
+                <img src="images/profile.png" alt="Yishan Wang" class="profile-photo">
+                <div class="header-text">
+                    <h1>Yishan Wang</h1>
+                    <p class="subtitle">PhD Researcher at TU Eindhoven</p>
+                    <p class="email">askyishan@gmail.com</p>
+                    <div class="social-pills">
+                        <a href="https://scholar.google.com/citations?user=Zy2eJZYAAAAJ&hl=en">Scholar</a>
+                        <a href="https://github.com/yishani">GitHub</a>
+                        <a href="https://www.linkedin.com/in/askyishan/">LinkedIn</a>
+                        <a href="https://drive.google.com/file/d/1V_Zh28WvNt4IP1V_HgYiuSnjys2AkAC2/view?usp=sharing">CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Education Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <h2>Education</h2>
-                                    <ul>
-                                        <li><strong>[2025 - Now]</strong> 🎓 PhD, 
-                                            <a href="https://www.tue.nl/en/">TU Eindhoven</a>, 
-                                            supervised by <a href="https://aqibsaeed.github.io/">Dr. Aaqib Saeed</a> and 
-                                            <a href="https://mathias-funk.com/">Dr. Mathias Funk</a>.</li>
-                                        <li><strong>[2022 - 2024]</strong> MSc in Brain and Cognitive Sciences (Research), 
-                                            <a href="https://www.uva.nl/en">University of Amsterdam</a>.</li>
-                                        <li><strong>[2018 - 2022]</strong> BA in Philosophy (Science & Logic), 
-                                            <a href="https://english.pku.edu.cn/">Peking University</a>.</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Biography -->
+        <section>
+            <h2>About</h2>
+            <p class="bio-text">
+                My research interests include <strong>Multimodal Learning</strong> (fundamental understanding) 
+                and <strong>AI Agents for Healthcare Applications</strong>.
+            </p>
+        </section>
 
-                    <!-- Biography Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <h2>Biography</h2>
-                                    <p>
-                                        📌 My research interests include <strong>Multimodal Learning</strong> (fundamental understanding) 
-                                        and <strong>AI Agents for Healthcare Applications</strong>. 
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Education -->
+        <section>
+            <h2>Education</h2>
+            <div class="edu-list">
+                <div class="edu-item">
+                    <span class="edu-year">2025 – Now</span>
+                    <div class="edu-content">
+                        <div class="edu-degree">🎓 PhD</div>
+                        <div class="edu-school">
+                            <a href="https://www.tue.nl/en/">TU Eindhoven</a> · 
+                            supervised by <a href="https://aqibsaeed.github.io/">Dr. Aaqib Saeed</a> & 
+                            <a href="https://mathias-funk.com/">Dr. Mathias Funk</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-year">2022 – 2024</span>
+                    <div class="edu-content">
+                        <div class="edu-degree">MSc in Brain and Cognitive Sciences</div>
+                        <div class="edu-school"><a href="https://www.uva.nl/en">University of Amsterdam</a></div>
+                    </div>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-year">2018 – 2022</span>
+                    <div class="edu-content">
+                        <div class="edu-degree">BA in Philosophy (Science & Logic)</div>
+                        <div class="edu-school"><a href="https://english.pku.edu.cn/">Peking University</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- News Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <h2>News</h2>
-                                    <ul>
-                                        <li><strong>[2025.10]</strong> 🔥 Attending EMNLP 2025 in Suzhou 🇨🇳.</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- News -->
+        <section>
+            <h2>News</h2>
+            <div class="news-item">
+                <span class="news-badge">Oct 2025</span>
+                <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
+            </div>
+        </section>
 
-                    <!-- Publications Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <h2>Publications</h2>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Publications -->
+        <section>
+            <h2>Publications</h2>
+            <div class="pub-list">
+                <div class="pub-item">
+                    <div class="pub-title">Your Mileage May Vary: How Empathy and Demographics Shape Human Preferences in LLM Responses</div>
+                    <div class="pub-authors">
+                        <span class="me">Yishan Wang</span>, 
+                        <a href="https://amandacurry.github.io/">Amanda Cercas Curry</a>, 
+                        <a href="https://fmplaza.github.io/">Flor Miriam Plaza-del-Arco</a>
+                    </div>
+                    <div class="pub-venue">EMNLP 2025 Findings</div>
+                    <div class="pub-links">
+                        <a href="https://aclanthology.org/2025.findings-emnlp.935.pdf">Paper</a>
+                    </div>
+                </div>
 
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
+                <div class="pub-item">
+                    <div class="pub-title">The Negation Bias in Large Language Models: Investigating bias reflected in linguistic markers</div>
+                    <div class="pub-authors">
+                        <span class="me">Yishan Wang</span>, 
+                        <a href="https://research.vu.nl/en/persons/pia-sommerauer">Pia Sommerauer</a>, 
+                        <a href="https://www.uva.nl/en/profile/b/l/j.bloem/j.bloem.html">Jelke Bloem</a>
+                    </div>
+                    <div class="pub-venue">COLM 2025</div>
+                    <div class="pub-links">
+                        <a href="https://openreview.net/forum?id=BuXZtHTefA">OpenReview</a>
+                        <a href="https://openreview.net/pdf?id=BuXZtHTefA">PDF</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                            <!-- Paper 1 -->
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <strong>Your Mileage May Vary: How Empathy and Demographics Shape Human Preferences in LLM Responses</strong>
-                                    <br>
-                                    <strong>Yishan Wang</strong>,
-                                    <a href="https://amandacurry.github.io/">Amanda Cercas Curry</a>,
-                                    <a href="https://fmplaza.github.io/">Flor Miriam Plaza-del-Arco</a>
-                                    <br>
-                                    <em>EMNLP 2025 Findings</em>
-                                    <br>
-                                    [<a href="https://aclanthology.org/2025.findings-emnlp.935.pdf">Paper</a>]
-                                </td>
-                            </tr>
+        <!-- Awards -->
+        <section>
+            <h2>Awards & Fellowship</h2>
+            <div class="awards-list">
+                <div class="award-item">
+                    <span class="award-year">2020</span>
+                    <span>Xinyu Scholarship, Peking University</span>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2019</span>
+                    <span><a href="https://universityinnovationfellows.org/">University Innovation Fellows</a>, Stanford D School</span>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2017</span>
+                    <span>1st Prize in Provincial Chinese Mathematics Olympiad (Ranked 28th)</span>
+                </div>
+            </div>
+        </section>
 
-                            <!-- Paper 2 -->
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <strong>The Negation Bias in Large Language Models: Investigating bias reflected in linguistic markers</strong>
-                                    <br>
-                                    <strong>Yishan Wang</strong>,
-                                    <a href="https://research.vu.nl/en/persons/pia-sommerauer">Pia Sommerauer</a>,
-                                    <a href="https://www.uva.nl/en/profile/b/l/j.bloem/j.bloem.html">Jelke Bloem</a>
-                                    <br>
-                                    <em>COLM 2025</em>
-                                    <br>
-                                    [<a href="https://openreview.net/forum?id=BuXZtHTefA">OpenReview</a>]
-                                    [<a href="https://openreview.net/pdf?id=BuXZtHTefA">PDF</a>]
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-                    <!-- Awards & Fellowship Section -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;width:100%;vertical-align:middle">
-                                    <h2>Awards & Fellowship</h2>
-                                    <ul>
-                                        <li><strong>[2020]</strong> Xinyu Scholarship, Peking University</li>
-                                        <li><strong>[2019]</strong> <a href="https://universityinnovationfellows.org/">University Innovation Fellows</a>, 
-                                            Stanford D School</li>
-                                        <li><strong>[2017]</strong> 1st Prize in Provincial Chinese Mathematics Olympiad (Ranked <strong>28th</strong> in Province)</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Footer with Visitor Map -->
-                    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:20px;text-align:center">
-                                    <br>
-                                    <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=YOUR_CLUSTER_ID"></script>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">Eindhoven, Netherlands ✦</p>
+        </footer>
+    </div>
 </body>
 </html>
