@@ -404,6 +404,22 @@
                 color: var(--muted);
                 min-width: 36px;
             }
+
+            /* Visitor Map */
+            .globe-section {
+                margin-top: 12px;
+                text-align: center;
+            }
+
+            .globe-container {
+                display: inline-block;
+                opacity: 0.85;
+                transition: opacity 0.3s ease;
+            }
+
+            .globe-container:hover {
+                opacity: 1;
+            }
         }
 
         /* ========== MOBILE/TABLET LAYOUT ========== */
@@ -718,6 +734,16 @@
                 color: var(--muted);
                 min-width: 50px;
             }
+
+            /* Visitor Map */
+            .globe-section {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .globe-container {
+                display: inline-block;
+            }
         }
 
         /* Small phones */
@@ -877,6 +903,13 @@
                         <span class="award-year">2017</span>
                         <span>1st Prize in Provincial Chinese Mathematics Olympiad (Ranked 28th in Province)</span>
                     </div>
+                </div>
+            </section>
+
+            <!-- Visitor Map -->
+            <section class="globe-section">
+                <div class="globe-container">
+                    <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=w1MiC1LcS3pvn2YTrat3h65pmAVb_64KjppwKlJjlmo&cl=ffffff&w=a"></script>
                 </div>
             </section>
         </main>
