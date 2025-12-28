@@ -25,18 +25,18 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
         body {
             font-family: 'Outfit', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 400;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--warm-gray);
-            background: linear-gradient(180deg, var(--cream) 0%, #fff9f5 50%, var(--cream) 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, #fff9f5 50%, var(--cream) 100%);
         }
 
         ::selection {
@@ -71,8 +71,8 @@
             position: absolute;
             top: -20%;
             right: -10%;
-            width: 600px;
-            height: 600px;
+            width: 500px;
+            height: 500px;
             background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
             opacity: 0.5;
             animation: float 20s ease-in-out infinite;
@@ -83,8 +83,8 @@
             position: absolute;
             bottom: 10%;
             left: -5%;
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             background: radial-gradient(circle, #fce8d5 0%, transparent 70%);
             opacity: 0.4;
             animation: float 25s ease-in-out infinite reverse;
@@ -95,44 +95,37 @@
             50% { transform: translate(30px, 20px); }
         }
 
-        .container {
-            max-width: 680px;
+        /* Main Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 32px;
-            position: relative;
         }
 
-        /* Header Card */
-        .header-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 48px;
-            margin-bottom: 48px;
-            border: 1px solid var(--light-line);
-            box-shadow: 0 4px 40px rgba(224, 120, 80, 0.06);
-            animation: cardIn 0.7s ease-out;
-        }
-
-        @keyframes cardIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .header-inner {
+        /* Left Sidebar */
+        .sidebar {
+            padding: 48px 40px;
             display: flex;
-            gap: 40px;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--light-line);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .profile-photo {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--blush);
-            flex-shrink: 0;
+            margin-bottom: 24px;
             transition: transform 0.4s ease, border-color 0.3s ease;
         }
 
@@ -141,41 +134,41 @@
             border-color: var(--soft-orange);
         }
 
-        .header-text h1 {
+        .sidebar h1 {
             font-family: 'Fraunces', serif;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 600;
             letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
             margin-bottom: 8px;
         }
 
-        .header-text .subtitle {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-
-        .header-text .email {
+        .email {
             font-family: 'Fraunces', serif;
             font-style: italic;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--muted);
             margin-bottom: 20px;
         }
 
         .social-pills {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .social-pills a {
             display: inline-block;
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: var(--blush);
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             color: var(--warm-gray);
             transition: all 0.25s ease;
@@ -187,44 +180,50 @@
             transform: translateY(-2px);
         }
 
-        /* Sections */
-        section {
-            margin-bottom: 40px;
-            animation: fadeUp 0.6s ease-out backwards;
+        /* Right Content Area */
+        .content {
+            padding: 40px 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto 1fr;
+            gap: 24px 40px;
+            align-content: center;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out 0.2s both;
         }
 
-        section:nth-child(2) { animation-delay: 0.15s; }
-        section:nth-child(3) { animation-delay: 0.25s; }
-        section:nth-child(4) { animation-delay: 0.35s; }
-        section:nth-child(5) { animation-delay: 0.45s; }
-        section:nth-child(6) { animation-delay: 0.55s; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Section Headers */
         h2 {
             font-family: 'Fraunces', serif;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: 400;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            color: var(--warm-gray);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         h2::after {
             content: '';
             flex: 1;
             height: 1px;
-            background: linear-gradient(90deg, var(--light-line) 0%, transparent 100%);
+            background: var(--light-line);
         }
 
-        /* Bio */
+        /* About - spans full width */
+        .about {
+            grid-column: 1 / -1;
+        }
+
         .bio-text {
-            font-size: 16px;
-            line-height: 1.8;
+            font-size: 15px;
+            line-height: 1.7;
             color: var(--warm-gray);
         }
 
@@ -233,24 +232,28 @@
             font-weight: 500;
         }
 
-        /* Education List */
+        /* Education */
+        .education {
+            grid-column: 1;
+        }
+
         .edu-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
         }
 
         .edu-item {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: flex-start;
         }
 
         .edu-year {
             font-family: 'Fraunces', serif;
-            font-size: 13px;
+            font-size: 11px;
             color: var(--muted);
-            min-width: 90px;
+            min-width: 70px;
             padding-top: 2px;
         }
 
@@ -260,70 +263,105 @@
 
         .edu-degree {
             font-weight: 500;
-            margin-bottom: 2px;
+            font-size: 13px;
+            margin-bottom: 1px;
         }
 
         .edu-school {
-            font-size: 14px;
+            font-size: 12px;
             color: var(--muted);
         }
 
-        /* News */
-        .news-item {
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            border: 1px solid var(--light-line);
+        /* Awards */
+        .awards {
+            grid-column: 2;
+        }
+
+        .awards-list {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .award-item {
+            display: flex;
             gap: 12px;
+            align-items: baseline;
+            font-size: 13px;
+        }
+
+        .award-year {
+            font-family: 'Fraunces', serif;
+            font-size: 11px;
+            color: var(--muted);
+            min-width: 36px;
+        }
+
+        /* News - small inline */
+        .news {
+            grid-column: 1 / -1;
+        }
+
+        .news-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            border: 1px solid var(--light-line);
+            font-size: 13px;
         }
 
         .news-badge {
             background: linear-gradient(135deg, var(--soft-orange), #f09060);
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        /* Publications */
+        /* Publications - spans full width */
+        .publications {
+            grid-column: 1 / -1;
+        }
+
         .pub-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
         .pub-item {
-            padding: 24px;
+            padding: 16px 20px;
             background: rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
+            border-radius: 12px;
             border: 1px solid var(--light-line);
             transition: all 0.3s ease;
         }
 
         .pub-item:hover {
             background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 30px rgba(224, 120, 80, 0.08);
+            box-shadow: 0 6px 24px rgba(224, 120, 80, 0.08);
             transform: translateY(-2px);
         }
 
         .pub-title {
             font-family: 'Fraunces', serif;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 10px;
+            line-height: 1.4;
+            margin-bottom: 8px;
             color: var(--warm-gray);
         }
 
         .pub-authors {
-            font-size: 14px;
+            font-size: 12px;
             color: var(--muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .pub-authors .me {
@@ -334,24 +372,24 @@
         .pub-venue {
             font-family: 'Fraunces', serif;
             font-style: italic;
-            font-size: 14px;
+            font-size: 12px;
             color: var(--soft-orange);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .pub-links {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .pub-links a {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 6px 12px;
+            padding: 4px 10px;
             background: var(--blush);
-            border-radius: 6px;
+            border-radius: 5px;
             color: var(--warm-gray);
         }
 
@@ -360,61 +398,56 @@
             color: white;
         }
 
-        /* Awards */
-        .awards-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .award-item {
-            display: flex;
-            gap: 16px;
-            align-items: baseline;
-        }
-
-        .award-year {
-            font-family: 'Fraunces', serif;
-            font-size: 13px;
-            color: var(--muted);
-            min-width: 50px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding-top: 40px;
-            margin-top: 20px;
-        }
-
-        .footer-text {
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            font-size: 14px;
-            color: var(--muted);
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .container {
-                padding: 60px 20px;
+        /* Responsive - Stack on mobile */
+        @media (max-width: 1024px) {
+            html, body {
+                height: auto;
+                overflow: auto;
             }
 
-            .header-card {
-                padding: 32px 24px;
+            .layout {
+                grid-template-columns: 1fr;
+                height: auto;
             }
 
-            .header-inner {
-                flex-direction: column;
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--light-line);
+                padding: 40px 32px;
                 text-align: center;
+                align-items: center;
             }
 
             .social-pills {
                 justify-content: center;
             }
 
-            .header-text h1 {
+            .content {
+                grid-template-columns: 1fr;
+                padding: 32px;
+            }
+
+            .about, .education, .awards, .news, .publications {
+                grid-column: 1;
+            }
+
+            .pub-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                padding: 32px 24px;
+            }
+
+            .sidebar h1 {
                 font-size: 28px;
+            }
+
+            .content {
+                padding: 24px;
+                gap: 20px;
             }
         }
     </style>
@@ -423,131 +456,129 @@
 <body>
     <div class="ambient"></div>
     
-    <div class="container">
-        <!-- Header Card -->
-        <div class="header-card">
-            <div class="header-inner">
-                <img src="images/profile.png" alt="Yishan Wang" class="profile-photo">
-                <div class="header-text">
-                    <h1>Yishan Wang</h1>
-                    <p class="subtitle">PhD Researcher at TU Eindhoven</p>
-                    <p class="email">askyishan@gmail.com</p>
-                    <div class="social-pills">
-                        <a href="https://scholar.google.com/citations?user=Zy2eJZYAAAAJ&hl=en">Scholar</a>
-                        <a href="https://github.com/yishani">GitHub</a>
-                        <a href="https://www.linkedin.com/in/askyishan/">LinkedIn</a>
-                        <a href="https://drive.google.com/file/d/1V_Zh28WvNt4IP1V_HgYiuSnjys2AkAC2/view?usp=sharing">CV</a>
-                    </div>
-                </div>
+    <div class="layout">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <img src="images/profile.png" alt="Yishan Wang" class="profile-photo">
+            <h1>Yishan Wang</h1>
+            <p class="subtitle">PhD Researcher at TU Eindhoven</p>
+            <p class="email">askyishan@gmail.com</p>
+            <div class="social-pills">
+                <a href="https://scholar.google.com/citations?user=Zy2eJZYAAAAJ&hl=en">Scholar</a>
+                <a href="https://github.com/yishani">GitHub</a>
+                <a href="https://www.linkedin.com/in/askyishan/">LinkedIn</a>
+                <a href="https://drive.google.com/file/d/1V_Zh28WvNt4IP1V_HgYiuSnjys2AkAC2/view?usp=sharing">CV</a>
             </div>
-        </div>
+        </aside>
 
-        <!-- Biography -->
-        <section>
-            <h2>About</h2>
-            <p class="bio-text">
-                My research interests include <strong>Multimodal Learning</strong> (fundamental understanding) 
-                and <strong>AI Agents for Healthcare Applications</strong>.
-            </p>
-        </section>
+        <!-- Right Content -->
+        <main class="content">
+            <!-- About -->
+            <section class="about">
+                <h2>About</h2>
+                <p class="bio-text">
+                    My research interests include <strong>Multimodal Learning</strong> (fundamental understanding) 
+                    and <strong>AI Agents for Healthcare Applications</strong>.
+                </p>
+            </section>
 
-        <!-- Education -->
-        <section>
-            <h2>Education</h2>
-            <div class="edu-list">
-                <div class="edu-item">
-                    <span class="edu-year">2025 – Now</span>
-                    <div class="edu-content">
-                        <div class="edu-degree">🎓 PhD</div>
-                        <div class="edu-school">
-                            <a href="https://www.tue.nl/en/">TU Eindhoven</a> · 
-                            supervised by <a href="https://aqibsaeed.github.io/">Dr. Aaqib Saeed</a> & 
-                            <a href="https://mathias-funk.com/">Dr. Mathias Funk</a>
+            <!-- Education -->
+            <section class="education">
+                <h2>Education</h2>
+                <div class="edu-list">
+                    <div class="edu-item">
+                        <span class="edu-year">2025 – Now</span>
+                        <div class="edu-content">
+                            <div class="edu-degree">🎓 PhD</div>
+                            <div class="edu-school">
+                                <a href="https://www.tue.nl/en/">TU Eindhoven</a> · 
+                                <a href="https://aqibsaeed.github.io/">Dr. Saeed</a> & 
+                                <a href="https://mathias-funk.com/">Dr. Funk</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="edu-item">
+                        <span class="edu-year">2022 – 2024</span>
+                        <div class="edu-content">
+                            <div class="edu-degree">MSc Brain & Cognitive Sciences</div>
+                            <div class="edu-school"><a href="https://www.uva.nl/en">University of Amsterdam</a></div>
+                        </div>
+                    </div>
+                    <div class="edu-item">
+                        <span class="edu-year">2018 – 2022</span>
+                        <div class="edu-content">
+                            <div class="edu-degree">BA Philosophy (Science & Logic)</div>
+                            <div class="edu-school"><a href="https://english.pku.edu.cn/">Peking University</a></div>
                         </div>
                     </div>
                 </div>
-                <div class="edu-item">
-                    <span class="edu-year">2022 – 2024</span>
-                    <div class="edu-content">
-                        <div class="edu-degree">MSc in Brain and Cognitive Sciences</div>
-                        <div class="edu-school"><a href="https://www.uva.nl/en">University of Amsterdam</a></div>
-                    </div>
-                </div>
-                <div class="edu-item">
-                    <span class="edu-year">2018 – 2022</span>
-                    <div class="edu-content">
-                        <div class="edu-degree">BA in Philosophy (Science & Logic)</div>
-                        <div class="edu-school"><a href="https://english.pku.edu.cn/">Peking University</a></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- News -->
-        <section>
-            <h2>News</h2>
-            <div class="news-item">
-                <span class="news-badge">Oct 2025</span>
-                <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
-            </div>
-        </section>
+            
+            <!-- News -->
+            <section class="news">
+                <h2>News</h2>
+                <div class="news-item">
+                    <span class="news-badge">Oct 2025</span>
+                    <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
+                </div>
+            </section>
 
-        <!-- Publications -->
-        <section>
-            <h2>Publications</h2>
-            <div class="pub-list">
-                <div class="pub-item">
-                    <div class="pub-title">Your Mileage May Vary: How Empathy and Demographics Shape Human Preferences in LLM Responses</div>
-                    <div class="pub-authors">
-                        <span class="me">Yishan Wang</span>, 
-                        <a href="https://amandacurry.github.io/">Amanda Cercas Curry</a>, 
-                        <a href="https://fmplaza.github.io/">Flor Miriam Plaza-del-Arco</a>
+            <!-- Publications -->
+            <section class="publications">
+                <h2>Publications</h2>
+                <div class="pub-list">
+                    <div class="pub-item">
+                        <div class="pub-title">Your Mileage May Vary: How Empathy and Demographics Shape Human Preferences in LLM Responses</div>
+                        <div class="pub-authors">
+                            <span class="me">Yishan Wang</span>, 
+                            <a href="https://amandacurry.github.io/">A. Cercas Curry</a>, 
+                            <a href="https://fmplaza.github.io/">F.M. Plaza-del-Arco</a>
+                        </div>
+                        <div class="pub-venue">EMNLP 2025 Findings</div>
+                        <div class="pub-links">
+                            <a href="https://aclanthology.org/2025.findings-emnlp.935.pdf">Paper</a>
+                        </div>
                     </div>
-                    <div class="pub-venue">EMNLP 2025 Findings</div>
-                    <div class="pub-links">
-                        <a href="https://aclanthology.org/2025.findings-emnlp.935.pdf">Paper</a>
-                    </div>
-                </div>
 
-                <div class="pub-item">
-                    <div class="pub-title">The Negation Bias in Large Language Models: Investigating bias reflected in linguistic markers</div>
-                    <div class="pub-authors">
-                        <span class="me">Yishan Wang</span>, 
-                        <a href="https://research.vu.nl/en/persons/pia-sommerauer">Pia Sommerauer</a>, 
-                        <a href="https://www.uva.nl/en/profile/b/l/j.bloem/j.bloem.html">Jelke Bloem</a>
+                    <div class="pub-item">
+                        <div class="pub-title">The Negation Bias in Large Language Models: Investigating bias reflected in linguistic markers</div>
+                        <div class="pub-authors">
+                            <span class="me">Yishan Wang</span>, 
+                            <a href="https://research.vu.nl/en/persons/pia-sommerauer">P. Sommerauer</a>, 
+                            <a href="https://www.uva.nl/en/profile/b/l/j.bloem/j.bloem.html">J. Bloem</a>
+                        </div>
+                        <div class="pub-venue">COLM 2025</div>
+                        <div class="pub-links">
+                            <a href="https://openreview.net/forum?id=BuXZtHTefA">OpenReview</a>
+                            <a href="https://openreview.net/pdf?id=BuXZtHTefA">PDF</a>
+                        </div>
                     </div>
-                    <div class="pub-venue">COLM 2025</div>
-                    <div class="pub-links">
-                        <a href="https://openreview.net/forum?id=BuXZtHTefA">OpenReview</a>
-                        <a href="https://openreview.net/pdf?id=BuXZtHTefA">PDF</a>
+                </div>
+            </section>
+
+            <!-- Awards -->
+            <section class="awards">
+                <h2>Awards & Fellowship</h2>
+                <div class="awards-list">
+                    <div class="award-item">
+                        <span class="award-year">2020</span>
+                        <span>Xinyu Scholarship, Peking University</span>
+                    </div>
+                    <div class="award-item">
+                        <span class="award-year">2019</span>
+                        <span><a href="https://universityinnovationfellows.org/">University Innovation Fellows</a>, Stanford</span>
+                    </div>
+                    <div class="award-item">
+                        <span class="award-year">2017</span>
+                        <span>1st Prize, Provincial Math Olympiad (28th)</span>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Awards -->
-        <section>
-            <h2>Awards & Fellowship</h2>
-            <div class="awards-list">
-                <div class="award-item">
-                    <span class="award-year">2020</span>
-                    <span>Xinyu Scholarship, Peking University</span>
-                </div>
-                <div class="award-item">
-                    <span class="award-year">2019</span>
-                    <span><a href="https://universityinnovationfellows.org/">University Innovation Fellows</a>, Stanford D School</span>
-                </div>
-                <div class="award-item">
-                    <span class="award-year">2017</span>
-                    <span>1st Prize in Provincial Chinese Mathematics Olympiad (Ranked 28th)</span>
-                </div>
-            </div>
-        </section>
 
-        <!-- Footer -->
-        <footer>
-            <p class="footer-text">Eindhoven, Netherlands ✦</p>
-        </footer>
+
+        </main>
     </div>
 </body>
 </html>
