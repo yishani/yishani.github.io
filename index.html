@@ -97,13 +97,13 @@
         /* ========== DESKTOP LAYOUT ========== */
         @media (min-width: 1025px) {
             html, body {
-                overflow: hidden;
+                overflow: auto;
             }
 
             .layout {
                 display: grid;
                 grid-template-columns: 300px 1fr;
-                height: 100vh;
+                min-height: 100vh;
                 max-width: 1400px;
                 margin: 0 auto;
             }
@@ -193,12 +193,12 @@
 
             /* Right Content Area */
             .content {
-                padding: 32px 40px;
+                padding: 40px 40px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 gap: 20px;
-                overflow: hidden;
+                overflow: visible;
                 animation: fadeIn 0.6s ease-out 0.2s both;
             }
 
@@ -290,6 +290,12 @@
             }
 
             /* News */
+            .news-items {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
             .news-item {
                 display: inline-flex;
                 align-items: center;
@@ -314,8 +320,8 @@
 
             /* Publications */
             .pub-list {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 16px;
             }
 
@@ -607,6 +613,12 @@
             }
 
             /* News */
+            .news-items {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
             .news-item {
                 padding: 16px 20px;
                 background: rgba(255, 255, 255, 0.5);
@@ -815,9 +827,15 @@
             <!-- News -->
             <section class="news">
                 <h2>News</h2>
-                <div class="news-item">
-                    <span class="news-badge">Oct 2025</span>
-                    <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
+                <div class="news-items">
+                    <div class="news-item">
+                        <span class="news-badge">Oct 2025</span>
+                        <span>🔥 Attending EMNLP 2025 in Suzhou 🇨🇳</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-badge">Jun 2025</span>
+                        <span>🎉 Started PhD working on multimodal AI & agents for healthcare</span>
+                    </div>
                 </div>
             </section>
 
