@@ -147,25 +147,26 @@
             color: var(--muted);
         }
 
-        /* ===== List rows (education / news / awards) ===== */
-        .row {
+        /* ===== Compact rows (news / awards) ===== */
+        .list {
             display: flex;
-            gap: 24px;
-            padding: 13px 0;
-            border-top: 1px solid var(--line);
+            flex-direction: column;
         }
 
-        .row:first-of-type {
-            border-top: none;
-            padding-top: 0;
+        .row {
+            display: flex;
+            gap: 20px;
+            padding: 5px 0;
+            font-size: 15px;
+            line-height: 1.55;
         }
 
         .row-date {
             font-family: 'Newsreader', serif;
-            font-size: 14.5px;
+            font-size: 14px;
             color: var(--faint);
             flex-shrink: 0;
-            width: 116px;
+            width: 78px;
             padding-top: 1px;
         }
 
@@ -173,12 +174,7 @@
             flex: 1;
         }
 
-        .row-title {
-            font-weight: 500;
-        }
-
-        .row-sub {
-            font-size: 14.5px;
+        .row-body .where {
             color: var(--muted);
         }
 
@@ -303,7 +299,8 @@
 
             .row {
                 flex-direction: column;
-                gap: 3px;
+                gap: 1px;
+                padding: 7px 0;
             }
 
             .row-date {
@@ -343,8 +340,16 @@
         <section class="about">
             <h2>About</h2>
             <p class="bio-text">
-                My research interests include <em>multimodal learning</em> (fundamental
-                understanding) and <em>AI agents for healthcare applications</em>.
+                I'm a PhD researcher at <a href="https://www.tue.nl/en/">TU Eindhoven</a>,
+                advised by <a href="https://aqibsaeed.github.io/">Dr. Aaqib Saeed</a> and
+                <a href="https://mathias-funk.com/">Dr. Mathias Funk</a>. My research interests
+                include <em>multimodal learning</em> (fundamental understanding) and
+                <em>AI agents for healthcare applications</em>.
+            </p>
+            <p class="bio-text" style="margin-top: 12px;">
+                Previously, I completed an MSc in Brain and Cognitive Sciences at the
+                <a href="https://www.uva.nl/en">University of Amsterdam</a> and a BA in
+                Philosophy (Science &amp; Logic) at <a href="https://english.pku.edu.cn/">Peking University</a>.
             </p>
             <p class="collab-note">
                 Open to collaboration on audio reasoning benchmarks, multimodal safety,
@@ -352,51 +357,21 @@
             </p>
         </section>
 
-        <!-- Education -->
-        <section class="education">
-            <h2>Education</h2>
-            <div class="row">
-                <div class="row-date">2025 — Present</div>
-                <div class="row-body">
-                    <div class="row-title">PhD, <a href="https://www.tue.nl/en/">TU Eindhoven</a></div>
-                    <div class="row-sub">Advised by <a href="https://aqibsaeed.github.io/">Dr. Aaqib Saeed</a> and <a href="https://mathias-funk.com/">Dr. Mathias Funk</a></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row-date">2022 — 2024</div>
-                <div class="row-body">
-                    <div class="row-title">MSc, Brain and Cognitive Sciences (Research)</div>
-                    <div class="row-sub"><a href="https://www.uva.nl/en">University of Amsterdam</a></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row-date">2018 — 2022</div>
-                <div class="row-body">
-                    <div class="row-title">BA, Philosophy (Science & Logic)</div>
-                    <div class="row-sub"><a href="https://english.pku.edu.cn/">Peking University</a></div>
-                </div>
-            </div>
-        </section>
-
         <!-- News -->
         <section class="news">
             <h2>News</h2>
-            <div class="row">
-                <div class="row-date">Jul 2026</div>
-                <div class="row-body">
-                    <div class="row-title">Presenting StethoLM at ICML 2026, Journal-to-Conference track</div>
+            <div class="list">
+                <div class="row">
+                    <div class="row-date">Jul 2026</div>
+                    <div class="row-body">Presenting StethoLM at ICML 2026, Journal-to-Conference track</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="row-date">Oct 2025</div>
-                <div class="row-body">
-                    <div class="row-title">Attending EMNLP 2025 in Suzhou</div>
+                <div class="row">
+                    <div class="row-date">Oct 2025</div>
+                    <div class="row-body">Attending EMNLP 2025 in Suzhou</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="row-date">Jun 2025</div>
-                <div class="row-body">
-                    <div class="row-title">Started PhD on multimodal AI &amp; agents for healthcare</div>
+                <div class="row">
+                    <div class="row-date">Jun 2025</div>
+                    <div class="row-body">Started PhD on multimodal AI &amp; agents for healthcare</div>
                 </div>
             </div>
         </section>
@@ -452,25 +427,18 @@
         <!-- Awards -->
         <section class="awards">
             <h2>Awards &amp; Fellowships</h2>
-            <div class="row">
-                <div class="row-date">2020</div>
-                <div class="row-body">
-                    <div class="row-title">1st Prize, PKU 'Challenge Cup' Undergraduate Research Contest</div>
-                    <div class="row-sub">Peking University</div>
+            <div class="list">
+                <div class="row">
+                    <div class="row-date">2020</div>
+                    <div class="row-body">1st Prize, PKU 'Challenge Cup' Undergraduate Research Contest <span class="where">— Peking University</span></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="row-date">2019</div>
-                <div class="row-body">
-                    <div class="row-title"><a href="https://universityinnovationfellows.org/">University Innovation Fellows</a></div>
-                    <div class="row-sub">Stanford d.school</div>
+                <div class="row">
+                    <div class="row-date">2019</div>
+                    <div class="row-body"><a href="https://universityinnovationfellows.org/">University Innovation Fellows</a> <span class="where">— Stanford d.school</span></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="row-date">2017</div>
-                <div class="row-body">
-                    <div class="row-title">1st Prize, Provincial Chinese Mathematics Olympiad</div>
-                    <div class="row-sub">Ranked 28th in province</div>
+                <div class="row">
+                    <div class="row-date">2017</div>
+                    <div class="row-body">1st Prize, Provincial Chinese Mathematics Olympiad <span class="where">— Ranked 28th in province</span></div>
                 </div>
             </div>
         </section>
