@@ -95,11 +95,38 @@
             color: var(--muted);
         }
 
+        /* ===== Heart/lung audio wave (header) ===== */
+        .waveline {
+            margin: 26px 0 0;
+            width: 100%;
+            height: 46px;
+            display: block;
+            overflow: visible;
+        }
+
+        .waveline path {
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .waveline .wave-draw {
+            stroke-dasharray: 1400;
+            stroke-dashoffset: 1400;
+            animation: draw 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+
         /* ===== Meta line ===== */
         .meta {
             font-size: 14.5px;
             color: var(--muted);
-            margin: 30px 0 6px;
+            margin: 24px 0 6px;
         }
 
         .meta a {
@@ -145,6 +172,73 @@
             margin-top: 14px;
             font-size: 15px;
             color: var(--muted);
+        }
+
+        /* ===== Research Venn ===== */
+        .venn-section {
+            margin-top: 56px;
+        }
+
+        .venn {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            display: block;
+            margin: 4px auto 0;
+            overflow: visible;
+        }
+
+        .venn circle {
+            fill: var(--ink);
+            fill-opacity: 0.022;
+            stroke: var(--ink);
+            stroke-width: 1.2;
+        }
+
+        .venn .ring {
+            stroke-dasharray: 920;
+            stroke-dashoffset: 920;
+            animation: draw 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .venn .ring.r2 { animation-delay: 0.22s; }
+        .venn .ring.r3 { animation-delay: 0.44s; }
+
+        .venn .lbl {
+            font-family: 'Spline Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            fill: var(--muted);
+            text-anchor: middle;
+        }
+
+        .venn .core {
+            fill: var(--ink);
+        }
+
+        .venn .core-pulse {
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 1;
+            opacity: 0;
+            transform-origin: center;
+            animation: pulse 2.4s ease-out 1.4s infinite;
+        }
+
+        @keyframes pulse {
+            0%   { opacity: 0.5; r: 4; }
+            70%  { opacity: 0;   r: 16; }
+            100% { opacity: 0;   r: 16; }
+        }
+
+        .venn-caption {
+            text-align: center;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 15px;
+            color: var(--muted);
+            margin-top: 18px;
         }
 
         /* ===== Compact rows (news / awards) ===== */
@@ -275,10 +369,16 @@
         .wrap > *:nth-child(5) { animation-delay: 0.28s; }
         .wrap > *:nth-child(6) { animation-delay: 0.34s; }
         .wrap > *:nth-child(7) { animation-delay: 0.40s; }
+        .wrap > *:nth-child(8) { animation-delay: 0.46s; }
 
         @keyframes rise {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .wave-draw, .venn .ring { animation: none; stroke-dashoffset: 0; }
+            .venn .core-pulse { animation: none; }
         }
 
         /* ===== Mobile ===== */
@@ -310,6 +410,8 @@
             .meta {
                 line-height: 2;
             }
+
+            .venn .lbl { font-size: 10px; }
         }
     </style>
 </head>
@@ -324,6 +426,26 @@
                 <p class="subtitle">PhD Researcher, TU Eindhoven</p>
             </div>
         </header>
+
+        <!-- Heart / lung audio wave -->
+        <svg class="waveline" viewBox="0 0 680 46" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wave-draw" d="
+                M0,23
+                C20,23 34,23 48,23
+                L70,23 74,11 80,35 86,23
+                C100,23 108,23 120,23
+                L140,23 144,9 150,37 156,23
+                C176,23 196,12 226,12
+                C256,12 276,34 306,34
+                C336,34 356,14 386,14
+                C404,14 414,23 430,23
+                L452,23 456,11 462,35 468,23
+                C482,23 490,23 504,23
+                L524,23 528,9 534,37 540,23
+                C560,23 580,13 610,13
+                C640,13 658,23 680,23
+            "/>
+        </svg>
 
         <!-- Meta -->
         <p class="meta">
@@ -355,6 +477,28 @@
                 Open to collaboration on audio reasoning benchmarks, multimodal safety,
                 and medical AI data. Feel free to reach out.
             </p>
+        </section>
+
+        <!-- Research focus (Venn) -->
+        <section class="venn-section">
+            <svg class="venn" viewBox="0 0 320 300" aria-label="My research sits at the intersection of Health AI, Agentic AI and Multimodal AI">
+                <!-- circles -->
+                <circle class="ring r1" cx="122" cy="132" r="76"/>
+                <circle class="ring r2" cx="198" cy="132" r="76"/>
+                <circle class="ring r3" cx="160" cy="198" r="76"/>
+
+                <!-- triple-intersection marker -->
+                <circle class="core-pulse" cx="160" cy="160" r="4"/>
+                <circle class="core" cx="160" cy="160" r="3.2"/>
+
+                <!-- labels (inside each circle's clear lobe) -->
+                <text class="lbl" x="80" y="116">Health</text>
+                <text class="lbl" x="80" y="131">AI</text>
+                <text class="lbl" x="240" y="116">Agentic</text>
+                <text class="lbl" x="240" y="131">AI</text>
+                <text class="lbl" x="160" y="226">Multimodal</text>
+                <text class="lbl" x="160" y="241">AI</text>
+            </svg>
         </section>
 
         <!-- News -->
