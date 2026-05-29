@@ -358,6 +358,18 @@
             border-top: 1px solid var(--line);
         }
 
+        #clustrmaps-widget {
+            min-height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #clustrmaps-widget img {
+            max-width: 100%;
+            height: auto;
+        }
+
         /* ===== Page load animation ===== */
         .wrap > * {
             animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
@@ -589,7 +601,9 @@
 
         <!-- Visitor Map -->
         <section class="map-section">
-            <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=tt&d=w1MiC1LcS3pvn2YTrat3h65pmAVb_64KjppwKlJjlmo&co=a3d6fb&cmo=fda2a2&cmn=89fd89&ct=ffffff"></script>
+            <div id="clustrmaps-widget">
+                <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=tt&d=w1MiC1LcS3pvn2YTrat3h65pmAVb_64KjppwKlJjlmo&co=a3d6fb&cmo=fda2a2&cmn=89fd89&ct=ffffff"></script>
+            </div>
         </section>
     </div>
 </body>
