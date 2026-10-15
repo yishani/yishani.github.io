@@ -38,6 +38,8 @@ button { font: inherit; }
 .wrap { max-width: 768px; padding: 0 24px; margin: auto; }
 .site-header { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .brand { font-size: 23px; font-weight: 700; white-space: nowrap; }
+.brand-box { display: flex; align-items: baseline; white-space: nowrap; }
+.brand-mark { color: var(--accent); font-size: 14px; font-weight: 700; margin-left: 2px; position: relative; top: -.7em; }
 .header-right { display: flex; align-items: center; gap: 22px; }
 .nav { display: flex; gap: 20px; font-size: 14px; }
 .nav a[aria-current='page'] { font-weight: 600; text-decoration: underline 2px var(--accent); text-underline-offset: 6px; }
@@ -58,7 +60,10 @@ button { font: inherit; }
 .entry p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 8px 0 0; }
 .entry-meta { color: var(--muted); font-size: 12px; margin-top: 11px; }
 .footer { border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 12px; padding: 19px 0 25px; }
-.footer span + span::before { content: " · "; }
+.footer > span + span::before { content: " · "; }
+.name-note { margin: 0 0 12px; text-align: left; font-size: 11px; scroll-margin-top: 20px; }
+.name-note .star { color: var(--accent); font-weight: 700; }
+.name-zh { font-family: 'Ma Shan Zheng', 'Kaiti SC', 'STKaiti', KaiTi, serif; font-size: 15px; color: var(--text); }
 .footer a { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 2px; }
 .article, .page-index { padding: 32px 0 75px; }
 .back-link { color: var(--muted); font-size: 13px; }
