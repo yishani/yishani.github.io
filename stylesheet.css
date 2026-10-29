@@ -101,7 +101,9 @@ button { font: inherit; }
 .credit { color: var(--muted); font-size: 12px; }
 @media (max-width: 520px) {
   .wrap { padding: 0 20px; }
-  .site-header { height: 60px; }
+  .site-header { height: auto; min-height: 60px; flex-wrap: wrap; gap: 10px; padding: 14px 0; }
+  .header-right { flex-wrap: wrap; }
+  .nav { flex-wrap: wrap; }
   .brand { font-size: 21px; }
   .header-right { gap: 12px; }
   .nav { gap: 11px; font-size: 12px; }
@@ -113,3 +115,14 @@ button { font: inherit; }
   .item-title span { display: block; margin-top: 3px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.about-intro { display: flex; align-items: flex-start; gap: 28px; margin: 24px 0 32px; }
+.profile-photo { display: block; width: 210px; max-width: 100%; height: auto; border-radius: 8px; flex-shrink: 0; }
+.about-intro .article-lead { margin: 0; }
+@media (max-width: 520px) { .about-intro { flex-direction: column; gap: 20px; } .profile-photo { width: 200px; } }
+
+/* Compact portrait crop; retain the original photo asset. */
+.profile-photo { width: 144px; height: 144px; object-fit: cover; object-position: 50% 17%; border-radius: 50%; }
+
+.profile-frame { display: block; position: relative; width: 144px; height: 144px; flex-shrink: 0; overflow: hidden; border-radius: 50%; }
+.profile-frame .profile-photo { display: block; position: absolute; width: 220px; max-width: none; height: auto; left: -38px; top: -5px; border-radius: 0; }
